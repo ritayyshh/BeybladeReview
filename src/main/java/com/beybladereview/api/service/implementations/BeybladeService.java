@@ -1,5 +1,8 @@
 package com.beybladereview.api.service.implementations;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import com.beybladereview.api.dto.BeybladeDto;
 import com.beybladereview.api.models.Beyblade;
@@ -46,5 +49,44 @@ public class BeybladeService implements IBeybladeService{
         beybladeResponse.setDescription(newBeyblade.getDescription());
 
         return beybladeResponse;
+    }
+
+    @Override
+    public List<BeybladeDto> getAllBeyblades() {
+        List<Beyblade> beyblades = beybladeRepository.findAll();
+        return beyblades.stream().map(b -> mapToDto(b)).collect(Collectors.toList());
+    }
+
+    private BeybladeDto mapToDto(Beyblade beyblade) {
+        BeybladeDto beybladeDto = new BeybladeDto();
+        beybladeDto.setId(beyblade.getId());
+        beybladeDto.setName(beyblade.getName());
+        beybladeDto.setBlader(beyblade.getBlader());
+        beybladeDto.setSeries(beyblade.getSeries());
+        beybladeDto.setType(beyblade.getType());
+        beybladeDto.setBitBeast(beyblade.getBitBeast());
+        beybladeDto.setSystem(beyblade.getSystem());
+        beybladeDto.setSpinDirection(beyblade.getSpinDirection());
+        beybladeDto.setAttackPower(beyblade.getAttackPower());
+        beybladeDto.setDefensePower(beyblade.getDefensePower());
+        beybladeDto.setStaminaPower(beyblade.getStaminaPower());
+        beybladeDto.setDescription(beyblade.getDescription());
+        return beybladeDto;
+    }
+
+    private Beyblade mapToEntity(BeybladeDto beybladeDto) {
+        Beyblade beyblade = new Beyblade();
+        beyblade.setName(beybladeDto.getName());
+        beyblade.setBlader(beybladeDto.getBlader());
+        beyblade.setSeries(beybladeDto.getSeries());
+        beyblade.setType(beybladeDto.getType());
+        beyblade.setBitBeast(beybladeDto.getBitBeast());
+        beyblade.setSystem(beybladeDto.getSystem());
+        beyblade.setSpinDirection(beybladeDto.getSpinDirection());
+        beyblade.setAttackPower(beybladeDto.getAttackPower());
+        beyblade.setDefensePower(beybladeDto.getDefensePower());
+        beyblade.setStaminaPower(beybladeDto.getStaminaPower());
+        beyblade.setDescription(beybladeDto.getDescription());
+        return beyblade;
     }
 }
