@@ -2,6 +2,7 @@ package com.beybladereview.api.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -32,4 +33,8 @@ public class BeybladeController {
         return new ResponseEntity<>(beybladeService.getAllBeyblades(), HttpStatus.OK);
     }
     
+    @GetMapping("beyblade")
+    public ResponseEntity<BeybladeDto> beybladeDetail(@RequestParam int id) {
+        return ResponseEntity.ok(beybladeService.getBeybladeById(id));
+    } 
 }

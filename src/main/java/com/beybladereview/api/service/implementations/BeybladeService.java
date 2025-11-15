@@ -2,9 +2,9 @@ package com.beybladereview.api.service.implementations;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
 import com.beybladereview.api.dto.BeybladeDto;
+import com.beybladereview.api.exceptions.BeybladeNotFoundException;
 import com.beybladereview.api.models.Beyblade;
 import com.beybladereview.api.repository.IBeybladeRepository;
 import com.beybladereview.api.service.IBeybladeService;
@@ -55,6 +55,12 @@ public class BeybladeService implements IBeybladeService{
     public List<BeybladeDto> getAllBeyblades() {
         List<Beyblade> beyblades = beybladeRepository.findAll();
         return beyblades.stream().map(b -> mapToDto(b)).collect(Collectors.toList());
+    }
+
+    @Override
+    public BeybladeDto getBeybladeById(int id) {
+        Beyblade beyblade = beybladeRepository.findById(id).orElseThrow(() -> new BeybladeNotFoundException("Beyblade could not be found!"));
+        return mapToDto(beyblade);
     }
 
     private BeybladeDto mapToDto(Beyblade beyblade) {
