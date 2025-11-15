@@ -63,6 +63,32 @@ public class BeybladeService implements IBeybladeService{
         return mapToDto(beyblade);
     }
 
+    @Override
+    public BeybladeDto updateBeyblade(BeybladeDto beybladeDto, int id) {
+        Beyblade beyblade = beybladeRepository.findById(id).orElseThrow(() -> new BeybladeNotFoundException("Beyblade could not be found!"));
+
+        beyblade.setName(beybladeDto.getName());
+        beyblade.setBlader(beybladeDto.getBlader());
+        beyblade.setSeries(beybladeDto.getSeries());
+        beyblade.setType(beybladeDto.getType());
+        beyblade.setBitBeast(beybladeDto.getBitBeast());
+        beyblade.setSystem(beybladeDto.getSystem());
+        beyblade.setSpinDirection(beybladeDto.getSpinDirection());
+        beyblade.setAttackPower(beybladeDto.getAttackPower());
+        beyblade.setDefensePower(beybladeDto.getDefensePower());
+        beyblade.setStaminaPower(beybladeDto.getStaminaPower());
+        beyblade.setDescription(beybladeDto.getDescription());
+
+        Beyblade updatedBeyblade = beybladeRepository.save(beyblade);
+        return mapToDto(updatedBeyblade);
+    }
+
+    @Override
+    public void deleteBeybladeById(int id) {
+        Beyblade beyblade = beybladeRepository.findById(id).orElseThrow(() -> new BeybladeNotFoundException("Beyblade could not be found!"));
+        beybladeRepository.delete(beyblade);
+    }
+
     private BeybladeDto mapToDto(Beyblade beyblade) {
         BeybladeDto beybladeDto = new BeybladeDto();
         beybladeDto.setId(beyblade.getId());
