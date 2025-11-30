@@ -24,36 +24,10 @@ public class BeybladeService implements IBeybladeService{
 
     @Override
     public BeybladeDto createBeyblade(BeybladeDto beybladeDto) {
-        Beyblade beyblade = new Beyblade();
-        beyblade.setName(beybladeDto.getName());
-        beyblade.setBlader(beybladeDto.getBlader());
-        beyblade.setSeries(beybladeDto.getSeries());
-        beyblade.setType(beybladeDto.getType());
-        beyblade.setBitBeast(beybladeDto.getBitBeast());
-        beyblade.setSystem(beybladeDto.getSystem());
-        beyblade.setSpinDirection(beybladeDto.getSpinDirection());
-        beyblade.setAttackPower(beybladeDto.getAttackPower());
-        beyblade.setDefensePower(beybladeDto.getDefensePower());
-        beyblade.setStaminaPower(beybladeDto.getStaminaPower());
-        beyblade.setDescription(beybladeDto.getDescription());
-        
-        Beyblade newBeyblade = beybladeRepository.save(beyblade);
+        Beyblade beyblade = mapToEntity(beybladeDto);
+        Beyblade saved = beybladeRepository.save(beyblade);
 
-        BeybladeDto beybladeResponse = new BeybladeDto();
-        beybladeResponse.setId(newBeyblade.getId());
-        beybladeResponse.setName(newBeyblade.getName());
-        beybladeResponse.setBlader(newBeyblade.getBlader());
-        beybladeResponse.setSeries(newBeyblade.getSeries());
-        beybladeResponse.setType(newBeyblade.getType());
-        beybladeResponse.setBitBeast(newBeyblade.getBitBeast());
-        beybladeResponse.setSystem(newBeyblade.getSystem());
-        beybladeResponse.setSpinDirection(newBeyblade.getSpinDirection());
-        beybladeResponse.setAttackPower(newBeyblade.getAttackPower());
-        beybladeResponse.setDefensePower(newBeyblade.getDefensePower());
-        beybladeResponse.setStaminaPower(newBeyblade.getStaminaPower());
-        beybladeResponse.setDescription(newBeyblade.getDescription());
-
-        return beybladeResponse;
+        return mapToDto(saved);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.beybladereview.api.controllers;
 import com.beybladereview.api.dto.BeybladeResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import com.beybladereview.api.dto.BeybladeDto;
 import com.beybladereview.api.service.IBeybladeService;
