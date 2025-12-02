@@ -5,7 +5,6 @@ A **RESTful backend application** built with **Java, Spring Boot, Hibernate, Lom
 ## Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
 - [Setup & Installation](#setup--installation)
 
 ## Features
@@ -24,20 +23,6 @@ A **RESTful backend application** built with **Java, Spring Boot, Hibernate, Lom
 - **Persistence:** Spring Data JPA with Hibernate ORM  
 - **Database:** PostgreSQL  
 - **Libraries/Tools:** Lombok, Maven, Postman (for API testing)  
-
-## Project Structure
-src/
-├── main/
-│   ├── java/com/beybladereview/
-│   │   ├── controller/       # REST controllers
-│   │   ├── service/          # Business logic
-│   │   ├── repository/       # JPA repositories
-│   │   ├── model/            # Entity classes
-│   │   ├── dto/              # Data Transfer Objects
-│   │   └── exception/        # Custom exceptions
-│   └── resources/
-│       └── application.properties
-
 
 ## Setup & Installation
 
