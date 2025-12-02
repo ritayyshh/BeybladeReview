@@ -27,16 +27,16 @@ A **RESTful backend application** built with **Java, Spring Boot, Hibernate, Lom
 
 ## Project Structure
 src/
-├─ main/
-│ ├─ java/com/beybladereview/
-│ │ ├─ controller/ # REST controllers
-│ │ ├─ service/ # Business logic
-│ │ ├─ repository/ # JPA repositories
-│ │ ├─ model/ # Entity classes
-│ │ ├─ dto/ # Data Transfer Objects
-│ │ └─ exception/ # Custom exceptions
-│ └─ resources/
-│ ├─ application.properties
+├── main/
+│   ├── java/com/beybladereview/
+│   │   ├── controller/       # REST controllers
+│   │   ├── service/          # Business logic
+│   │   ├── repository/       # JPA repositories
+│   │   ├── model/            # Entity classes
+│   │   ├── dto/              # Data Transfer Objects
+│   │   └── exception/        # Custom exceptions
+│   └── resources/
+│       └── application.properties
 
 
 ## Setup & Installation
