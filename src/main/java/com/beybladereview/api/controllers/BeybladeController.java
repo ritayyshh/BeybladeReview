@@ -1,6 +1,6 @@
 package com.beybladereview.api.controllers;
 
-import com.beybladereview.api.dto.BeybladeResponse;
+import com.beybladereview.api.dto.PageResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -22,14 +22,15 @@ public class BeybladeController {
         return new ResponseEntity<BeybladeDto>(beybladeService.createBeyblade(beybladeDto), HttpStatus.CREATED);     
     }
 
-    @GetMapping("beyblades")
-    public ResponseEntity<BeybladeResponse> getBeyblades(
+    @GetMapping("/beyblades")
+    public ResponseEntity<PageResponse<BeybladeDto>> getBeyblades(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
     ) {
-        return new ResponseEntity<>(beybladeService.getAllBeyblades(pageNo, pageSize), HttpStatus.OK);
+        PageResponse<BeybladeDto> response = beybladeService.getAllBeyblades(pageNo, pageSize);
+        return ResponseEntity.ok(response);
     }
-    
+
     @GetMapping("beyblade")
     public ResponseEntity<BeybladeDto> beybladeDetail(@RequestParam int id) {
         return ResponseEntity.ok(beybladeService.getBeybladeById(id));

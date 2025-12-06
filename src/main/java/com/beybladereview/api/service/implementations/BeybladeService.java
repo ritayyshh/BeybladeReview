@@ -1,9 +1,7 @@
 package com.beybladereview.api.service.implementations;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.beybladereview.api.dto.BeybladeResponse;
+import com.beybladereview.api.dto.PageResponse;
+import com.beybladereview.api.utils.PaginationUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
@@ -31,21 +29,11 @@ public class BeybladeService implements IBeybladeService{
     }
 
     @Override
-    public BeybladeResponse getAllBeyblades(int pageNo, int pageSize) {
+    public PageResponse<BeybladeDto> getAllBeyblades(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Beyblade> beyblades = beybladeRepository.findAll(pageable);
-        List<Beyblade> listOfBeyblades = beyblades.getContent();
-        List<BeybladeDto> content = listOfBeyblades.stream().map(b -> mapToDto(b)).collect(Collectors.toList());
+        Page<Beyblade> page = beybladeRepository.findAll(pageable);
 
-        BeybladeResponse beybladeResponse = new BeybladeResponse();
-        beybladeResponse.setContent(content);
-        beybladeResponse.setPageNo(beyblades.getNumber());
-        beybladeResponse.setPageSize(beyblades.getSize());
-        beybladeResponse.setTotalElements(beyblades.getTotalElements());
-        beybladeResponse.setTotalPages(beyblades.getTotalPages());
-        beybladeResponse.setLast(beyblades.isLast());
-
-        return beybladeResponse;
+        return PaginationUtils.toPageResponse(page, this::mapToDto);
     }
 
     @Override

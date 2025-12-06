@@ -1,5 +1,6 @@
 package com.beybladereview.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beyblade_id")
+    @JsonIgnore
     private Beyblade beyblade;
 }

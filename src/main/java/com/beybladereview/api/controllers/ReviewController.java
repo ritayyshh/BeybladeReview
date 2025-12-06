@@ -1,11 +1,11 @@
 package com.beybladereview.api.controllers;
 
+import com.beybladereview.api.dto.PageResponse;
 import com.beybladereview.api.dto.ReviewDto;
 import com.beybladereview.api.service.IReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
@@ -20,8 +20,15 @@ public class ReviewController {
     }
 
     @GetMapping("/beyblade/reviews")
-    public List<ReviewDto> getReviewsByBeybladeId(@RequestParam int beybladeId) {
-        return reviewService.getReviewsByBeybladeId(beybladeId);
+    public ResponseEntity<PageResponse<ReviewDto>> getReviewsByBeybladeId(
+            @RequestParam int beybladeId,
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+    ) {
+        PageResponse<ReviewDto> response =
+                reviewService.getReviewsByBeybladeId(beybladeId, pageNo, pageSize);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/beyblade/review")

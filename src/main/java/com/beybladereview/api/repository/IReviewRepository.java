@@ -2,8 +2,9 @@ package com.beybladereview.api.repository;
 
 import com.beybladereview.api.models.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IReviewRepository extends JpaRepository<Review, Integer> {
-    List<Review> findByBeybladeId(int beybladeId);
+    Page<Review> findByBeybladeId(int beybladeId, Pageable pageable);
 }

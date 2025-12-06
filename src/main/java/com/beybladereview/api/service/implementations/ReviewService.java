@@ -1,5 +1,6 @@
 package com.beybladereview.api.service.implementations;
 
+import com.beybladereview.api.dto.PageResponse;
 import com.beybladereview.api.dto.ReviewDto;
 import com.beybladereview.api.exceptions.BeybladeNotFoundException;
 import com.beybladereview.api.exceptions.ReviewNotFoundException;
@@ -8,14 +9,16 @@ import com.beybladereview.api.models.Review;
 import com.beybladereview.api.repository.IBeybladeRepository;
 import com.beybladereview.api.repository.IReviewRepository;
 import com.beybladereview.api.service.IReviewService;
+import com.beybladereview.api.utils.PaginationUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ReviewService implements IReviewService {
-    private IReviewRepository reviewRepository;
-    private IBeybladeRepository beybladeRepository;
+    private final IReviewRepository reviewRepository;
+    private final IBeybladeRepository beybladeRepository;
 
     public ReviewService(IReviewRepository reviewRepository, IBeybladeRepository beybladeRepository) {
         this.reviewRepository = reviewRepository;
@@ -36,10 +39,13 @@ public class ReviewService implements IReviewService {
     }
 
     @Override
-    public List<ReviewDto> getReviewsByBeybladeId(int id) {
-        List<Review> reviews = reviewRepository.findByBeybladeId(id);
+    public PageResponse<ReviewDto> getReviewsByBeybladeId(int beybladeId, int pageNo, int pageSize) {
 
-        return reviews.stream().map(review -> mapToDto(review)).collect(Collectors.toList());
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        Page<Review> page = reviewRepository.findByBeybladeId(beybladeId, pageable);
+
+        return PaginationUtils.toPageResponse(page, this::mapToDto);
     }
 
     @Override
